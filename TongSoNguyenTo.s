@@ -45,7 +45,7 @@ CONGSONGUYENTO
 	B LOOP
 	
 KETTHUCHAMMAIN
-	BX LR
+	B STOP
 	ENDP
 
 ; Kiem tra so nguyen so luu thanh R3, ket qua luu thanh R7
@@ -87,5 +87,7 @@ LASONT
 KETTHUCKIEMTRASNT
 	BX LR
 	ENDP
+
+STOP B STOP
 
 	END
