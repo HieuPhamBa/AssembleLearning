@@ -1,0 +1,1 @@
+.\baitest.o: BaiTest.s

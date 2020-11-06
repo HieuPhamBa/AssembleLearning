@@ -1,14 +1,5 @@
 --cpu Cortex-M3
-".\bai01.o"
-".\bai02.o"
-".\bai03.o"
-".\bai04.o"
-".\bai07.o"
-".\bai08.o"
-".\lab02_01.o"
-".\lab02_02.o"
-".\lab03_01.o"
-".\lab03_02.o"
+".\tongsonguyento.o"
 --strict --scatter ".\OnThi.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

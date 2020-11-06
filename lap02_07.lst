@@ -1,0 +1,236 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Tong cac so trong ma tran
+    2 00000000         ; ma tran: 4, 5 => Tong chan = 12, tong le = 8
+    3 00000000         ;      3, 8
+    4 00000000         ;---------------------------------------------
+    5 00000000         
+    6 00000000                 AREA             RESET, DATA, READONLY
+    7 00000000 20000000        DCD              0x20000000  ; khi bao stack 
+    8 00000004 00000000        DCD              MAIN
+    9 00000008         
+   10 00000008         MATRAN
+   11 00000008 00000001 
+              00000002 
+              00000003         DCD              1, 2, 3
+   12 00000014 0000000A 
+              00000005 
+              00000014         DCD              10, 5, 20
+   13 00000020 00000004 
+              00000006 
+              00000000         DCD              4, 6, 0
+   14 0000002C         
+   15 0000002C 00000009 
+                       SOLUONGPTU
+                               EQU              9
+   16 0000002C         
+   17 0000002C                 AREA             MAINSOURCE, CODE, READONLY
+   18 00000000                 ENTRY
+   19 00000000         
+   20 00000000         ; R0 tong cac so chan
+   21 00000000         ; R1 tong cac so le
+   22 00000000         ; R2 la con tro dau mang
+   23 00000000         ; R3 so luong phan tu
+   24 00000000         ; R4 phan tu offset, phan tu duoc load ra
+   25 00000000         MAIN
+   26 00000000 F04F 0000       MOV              R0, #0
+   27 00000004 F04F 0100       MOV              R1, #0
+   28 00000008 F04F 0400       MOV              R4, #0
+   29 0000000C         
+   30 0000000C 4A11            LDR              R2, =MATRAN
+   31 0000000E F04F 0309       LDR              R3, =SOLUONGPTU
+   32 00000012         
+   33 00000012         LOOP
+   34 00000012 2B00            CMP              R3, #0
+   35 00000014 D01D            BEQ              STOP
+   36 00000016         
+   37 00000016 F852 4B04       LDR              R4, [R2], #4 ; R4 = R2, dia chi
+                                                             R2 = dia chi R2 + 
+                                                            4
+   38 0000001A F1A3 0301       SUB              R3, #1
+   39 0000001E         
+   40 0000001E F7FF FFFE       BL               KIEMTRACHANLE
+   41 00000022         
+   42 00000022 2E01            CMP              R6, #1
+   43 00000024 D003            BEQ              TONGSOCHAN
+   44 00000026 D100            BNE              TONGSOLE
+   45 00000028         
+   46 00000028 E7F3            B                LOOP
+   47 0000002A         
+   48 0000002A         TONGSOLE
+   49 0000002A 4421            ADD              R1, R4      ; R1 = R1 + R4
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   50 0000002C E7F1            B                LOOP
+   51 0000002E         
+   52 0000002E         TONGSOCHAN
+   53 0000002E 4420            ADD              R0, R4      ; R0 = R0 + R4
+   54 00000030 E7EF            B                LOOP
+   55 00000032         
+   56 00000032         ; Ham kiem tra chan le 
+   57 00000032         ; Ket qua luu R6 (1 la het, 0 ;a ko)
+   58 00000032         KIEMTRACHANLE
+                               PROC
+   59 00000032 F04F 0600       MOV              R6, #0
+   60 00000036 F04F 0502       MOV              R5, #2
+   61 0000003A         
+   62 0000003A FB94 F8F5       SDIV             R8, R4, R5  ; R8 = R4 / 2
+   63 0000003E FB08 4915       MLS              R9, R8, R5, R4 
+                                                            ; R9 = R8 * R5 - R4
+                                                            
+   64 00000042         
+   65 00000042 F1B9 0F00       CMP              R9, #0
+   66 00000046 D000            BEQ              SOCHAN
+   67 00000048         
+   68 00000048 E002            B                KETTHUCHAM
+   69 0000004A         
+   70 0000004A         SOCHAN
+   71 0000004A F04F 0601       MOV              R6, #1
+   72 0000004E E7FF            B                KETTHUCHAM
+   73 00000050         
+   74 00000050         KETTHUCHAM
+   75 00000050 4770            BX               LR
+   76 00000052                 ENDP
+   77 00000052         
+   78 00000052 E7FE    STOP    B                STOP
+   79 00000054                 END
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\lap02_
+07.d -o.\lap02_07.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Kei
+l\ARM\Inc\ST\STM32F10x --list=.\lap02_07.lst Lap02_07.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MATRAN 00000008
+
+Symbol: MATRAN
+   Definitions
+      At line 10 in file Lap02_07.s
+   Uses
+      At line 30 in file Lap02_07.s
+Comment: MATRAN used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 6 in file Lap02_07.s
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KETTHUCHAM 00000050
+
+Symbol: KETTHUCHAM
+   Definitions
+      At line 74 in file Lap02_07.s
+   Uses
+      At line 68 in file Lap02_07.s
+      At line 72 in file Lap02_07.s
+
+KIEMTRACHANLE 00000032
+
+Symbol: KIEMTRACHANLE
+   Definitions
+      At line 58 in file Lap02_07.s
+   Uses
+      At line 40 in file Lap02_07.s
+Comment: KIEMTRACHANLE used once
+LOOP 00000012
+
+Symbol: LOOP
+   Definitions
+      At line 33 in file Lap02_07.s
+   Uses
+      At line 46 in file Lap02_07.s
+      At line 50 in file Lap02_07.s
+      At line 54 in file Lap02_07.s
+
+MAIN 00000000
+
+Symbol: MAIN
+   Definitions
+      At line 25 in file Lap02_07.s
+   Uses
+      At line 8 in file Lap02_07.s
+Comment: MAIN used once
+MAINSOURCE 00000000
+
+Symbol: MAINSOURCE
+   Definitions
+      At line 17 in file Lap02_07.s
+   Uses
+      None
+Comment: MAINSOURCE unused
+SOCHAN 0000004A
+
+Symbol: SOCHAN
+   Definitions
+      At line 70 in file Lap02_07.s
+   Uses
+      At line 66 in file Lap02_07.s
+Comment: SOCHAN used once
+STOP 00000052
+
+Symbol: STOP
+   Definitions
+      At line 78 in file Lap02_07.s
+   Uses
+      At line 35 in file Lap02_07.s
+      At line 78 in file Lap02_07.s
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+
+TONGSOCHAN 0000002E
+
+Symbol: TONGSOCHAN
+   Definitions
+      At line 52 in file Lap02_07.s
+   Uses
+      At line 43 in file Lap02_07.s
+Comment: TONGSOCHAN used once
+TONGSOLE 0000002A
+
+Symbol: TONGSOLE
+   Definitions
+      At line 48 in file Lap02_07.s
+   Uses
+      At line 44 in file Lap02_07.s
+Comment: TONGSOLE used once
+9 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+SOLUONGPTU 00000009
+
+Symbol: SOLUONGPTU
+   Definitions
+      At line 15 in file Lap02_07.s
+   Uses
+      At line 31 in file Lap02_07.s
+Comment: SOLUONGPTU used once
+1 symbol
+344 symbols in table
