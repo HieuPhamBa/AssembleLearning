@@ -1,0 +1,166 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Tim max min trong 1 chuoi so
+    2 00000000         
+    3 00000000                 AREA             RESET, DATA, READONLY
+    4 00000000 20000000        DCD              0x20000000
+    5 00000004 00000000        DCD              MAIN
+    6 00000008         
+    7 00000008 00000001 
+              00000003 
+              00000005 
+              FFFFFFFA 
+              00000002 Chuoi   DCD              1, 3, 5, -6, 2
+    8 0000001C 00000004 
+                       SoPhanTu
+                               DCD              4
+    9 00000020         
+   10 00000020                 AREA             MAINSOURCE, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000         
+   13 00000000         ; R0 luu gia tri max
+   14 00000000         ; R1 luu gia tri min
+   15 00000000         ; R2 luu gia tri offset
+   16 00000000         ; R3 luu gia tri dem n - 1
+   17 00000000         ; R4 llu con tro dau mang
+   18 00000000         MAIN
+   19 00000000 4C0B            LDR              R4, =Chuoi
+   20 00000002 F85F 3004       LDR              R3, SoPhanTu
+   21 00000006         
+   22 00000006 6821            LDR              R1, [R4]
+   23 00000008 6820            LDR              R0, [R4]
+   24 0000000A         
+   25 0000000A F04F 0200       MOV              R2, #0
+   26 0000000E         
+   27 0000000E         
+   28 0000000E         LOOP
+   29 0000000E 2B00            CMP              R3, #0
+   30 00000010 D00C            BEQ              STOP
+   31 00000012         
+   32 00000012 F854 2B04       LDR              R2, [R4], #4
+   33 00000016 F1A3 0301       SUB              R3, 1
+   34 0000001A         
+   35 0000001A 4282            CMP              R2, R0      ; khi R2 < R0 => SE
+                                                            T MAX 
+   36 0000001C DC02            BGT              SETMAX
+   37 0000001E         
+   38 0000001E 428A            CMP              R2, R1      ; khi R2 > R0 => SE
+                                                            T MAX 
+   39 00000020 DB02            BLT              SETMIN
+   40 00000022         
+   41 00000022 E7F4            B                LOOP
+   42 00000024         
+   43 00000024         SETMAX
+   44 00000024 4610            MOV              R0, R2      ; R0 = R2
+   45 00000026 E7F2            B                LOOP
+   46 00000028         
+   47 00000028         SETMIN
+   48 00000028 4611            MOV              R1, R2
+   49 0000002A E7F0            B                LOOP
+   50 0000002C         
+   51 0000002C E7FE    STOP    B                STOP
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   52 0000002E                 END
+              00 00 00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\lab02_
+02.d -o.\lab02_02.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Kei
+l\ARM\Inc\ST\STM32F10x --list=.\lab02_02.lst Lab02_02.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Chuoi 00000008
+
+Symbol: Chuoi
+   Definitions
+      At line 7 in file Lab02_02.s
+   Uses
+      At line 19 in file Lab02_02.s
+Comment: Chuoi used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file Lab02_02.s
+   Uses
+      None
+Comment: RESET unused
+SoPhanTu 0000001C
+
+Symbol: SoPhanTu
+   Definitions
+      At line 8 in file Lab02_02.s
+   Uses
+      At line 20 in file Lab02_02.s
+Comment: SoPhanTu used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+LOOP 0000000E
+
+Symbol: LOOP
+   Definitions
+      At line 28 in file Lab02_02.s
+   Uses
+      At line 41 in file Lab02_02.s
+      At line 45 in file Lab02_02.s
+      At line 49 in file Lab02_02.s
+
+MAIN 00000000
+
+Symbol: MAIN
+   Definitions
+      At line 18 in file Lab02_02.s
+   Uses
+      At line 5 in file Lab02_02.s
+Comment: MAIN used once
+MAINSOURCE 00000000
+
+Symbol: MAINSOURCE
+   Definitions
+      At line 10 in file Lab02_02.s
+   Uses
+      None
+Comment: MAINSOURCE unused
+SETMAX 00000024
+
+Symbol: SETMAX
+   Definitions
+      At line 43 in file Lab02_02.s
+   Uses
+      At line 36 in file Lab02_02.s
+Comment: SETMAX used once
+SETMIN 00000028
+
+Symbol: SETMIN
+   Definitions
+      At line 47 in file Lab02_02.s
+   Uses
+      At line 39 in file Lab02_02.s
+Comment: SETMIN used once
+STOP 0000002C
+
+Symbol: STOP
+   Definitions
+      At line 51 in file Lab02_02.s
+   Uses
+      At line 30 in file Lab02_02.s
+      At line 51 in file Lab02_02.s
+
+6 symbols
+341 symbols in table
