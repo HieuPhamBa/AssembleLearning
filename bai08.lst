@@ -1,0 +1,72 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;; Tinh BCLN
+    2 00000000         ;; Giai thuat eculid
+    3 00000000         ;; while(a != b)
+    4 00000000         ;;{
+    5 00000000         ;; if (a > b)
+    6 00000000         ;;  a = a - b
+    7 00000000         ;; else if (a < b)
+    8 00000000         ;;  b = b - a
+    9 00000000         ;;}
+   10 00000000         ;;BCLN = a*b/ UCNN
+   11 00000000         ;;Ket qua luu thanh R2
+   12 00000000         
+   13 00000000         ;AREA RESET, DATA, READONLY
+   14 00000000         ;DCD 0x20000000
+   15 00000000         ;DCD MAIN
+   16 00000000         
+   17 00000000         ;Num1 DCD 18
+   18 00000000         ;Num2 DCD 1
+   19 00000000         
+   20 00000000         ;AREA MAINSOURCE, CODE, READONLY
+   21 00000000         ;ENTRY
+   22 00000000         
+   23 00000000         ;; ket qua luu o R0 
+   24 00000000         ;MAIN 
+   25 00000000         ;LDR R0, Num1 ; gan phan tu number 1, R0 = 18
+   26 00000000         ;LDR R1, Num2 ; gan phan tu number 2, R1 = 16
+   27 00000000         ;MUL R2, R1, R0 ; R2 = R1 * R0
+   28 00000000         
+   29 00000000         ;VALIDATE
+   30 00000000         ;CMP R0, #0
+   31 00000000         ;BEQ STOP
+   32 00000000         
+   33 00000000         ;CMP R1, #0
+   34 00000000         ;BEQ STOP
+   35 00000000         
+   36 00000000         ;UCLN
+   37 00000000         ;CMP R0, R1
+   38 00000000         ;BEQ BCNN
+   39 00000000         ;BGT NEXT1
+   40 00000000         ;BLT NEXT2
+   41 00000000         
+   42 00000000         ;NEXT1
+   43 00000000         ;SUB R0, R1 ; R0 = R0 - R1
+   44 00000000         ;B UCLN
+   45 00000000         
+   46 00000000         ;NEXT2 
+   47 00000000         ;SUB R1, R0 ; R1 = R1 - R0
+   48 00000000         ;B UCLN
+   49 00000000         
+   50 00000000         ;BCNN
+   51 00000000         ;SDIV R2, R1
+   52 00000000         
+   53 00000000         ;STOP B STOP
+   54 00000000         
+   55 00000000         ;END
+                       
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai08.
+d -o.\bai08.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\
+Inc\ST\STM32F10x --list=.\bai08.lst Bai08.s
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+
+
+330 symbols in table

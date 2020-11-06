@@ -1,0 +1,84 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;; So nguyen to 
+    2 00000000         
+    3 00000000         ;AREA RESET, DATA, READONLY
+    4 00000000         ;DCD 0x20000000
+    5 00000000         ;DCD Main
+    6 00000000         
+    7 00000000         ;AREA MainSource, CODE, READONLY
+    8 00000000         ;ENTRY
+    9 00000000         
+   10 00000000         ;Main
+   11 00000000         ;MOV R1, #23
+   12 00000000         ;MOV R2, #5
+   13 00000000         
+   14 00000000         ;MOV R8, R1
+   15 00000000         
+   16 00000000         ;BL SoNguyenTo
+   17 00000000         ;B KetThuc 
+   18 00000000         
+   19 00000000         ;; Ham kiem tra so trong thanh ghi R8 co phai so nguyen 
+                       to khong?
+   20 00000000         ;; Luu ket qua thanh ghi R7
+   21 00000000         ;SoNguyenTo PROC 
+   22 00000000         ;CMP R8, #2
+   23 00000000         ;BLT KhongPhaiSoNguyenTo
+   24 00000000         
+   25 00000000         ;MOV R6, #2
+   26 00000000         
+   27 00000000         ;LapChiaHet
+   28 00000000         ;CMP R6, R8
+   29 00000000         ;BGE LaSoNguyenTo
+   30 00000000         
+   31 00000000         ;MOV R10, R8
+   32 00000000         ;MOV R9, R6
+   33 00000000         
+   34 00000000         ;;R10 = R10 % R9
+   35 00000000         ;ChiaDu
+   36 00000000         ;CMP R10, R9
+   37 00000000         ;BLT KetThucChiaDu
+   38 00000000         
+   39 00000000         ;LapTru
+   40 00000000         ;SUB R10, R9
+   41 00000000         ;CMP R10, R9
+   42 00000000         ;BGE LapTru
+   43 00000000         
+   44 00000000         ;KetThucChiaDu
+   45 00000000         ;;END R10 = R10 % R9
+   46 00000000         
+   47 00000000         ;CMP R10, #0
+   48 00000000         ;BEQ KhongPhaiSoNguyenTo
+   49 00000000         
+   50 00000000         ;ADD R6, #1
+   51 00000000         ;B LapChiaHet
+   52 00000000         
+   53 00000000         
+   54 00000000         ;LaSoNguyenTo
+   55 00000000         ;MOV R7, #1
+   56 00000000         ;B KetThucSoNguyenTo
+   57 00000000         
+   58 00000000         ;KhongPhaiSoNguyenTo
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   59 00000000         ;MOV R7, #0
+   60 00000000         
+   61 00000000         ;KetThucSoNguyenTo
+   62 00000000         ;BX LR
+   63 00000000         ;ENDP
+   64 00000000         
+   65 00000000         ;KetThuc B KetThuc
+   66 00000000         ;END
+                       
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\lab03_
+01.d -o.\lab03_01.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Kei
+l\ARM\Inc\ST\STM32F10x --list=.\lab03_01.lst Lab03_01.s
+330 symbols in table

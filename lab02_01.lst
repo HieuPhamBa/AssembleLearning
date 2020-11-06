@@ -1,0 +1,123 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Tong cac phan tu trong chuoi
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000 20000000        DCD              0x20000000
+    4 00000004 00000000        DCD              MAIN
+    5 00000008         
+    6 00000008 00000004 
+              00000005 
+              00000006 
+              00000007 
+              00000008 Chuoi   DCD              4, 5, 6, 7, 8
+    7 0000001C 00000005 
+                       SoLuongPhanTu
+                               DCD              5
+    8 00000020         
+    9 00000020                 AREA             MAINSOURCE, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000         
+   12 00000000         ; Tong luu o R0
+   13 00000000         ; R1 se dau chuoi
+   14 00000000         ; R2 se la chieu dai Chuoi
+   15 00000000         ; R3 se la offset, phan tu duoc load ra
+   16 00000000         MAIN
+   17 00000000 F04F 0000       MOV              R0, #0
+   18 00000004 F04F 0300       MOV              R3, #0
+   19 00000008         
+   20 00000008 4905            LDR              R1, =Chuoi
+   21 0000000A F85F 2004       LDR              R2, SoLuongPhanTu
+   22 0000000E         
+   23 0000000E         ; Lap tu 1->n den khi ket thuc chieu dai cua chuoi
+   24 0000000E         LOOP
+   25 0000000E F851 3B04       LDR              R3, [R1], #4
+   26 00000012 4418            ADD              R0, R3
+   27 00000014 F1A2 0201       SUB              R2, #1
+   28 00000018         
+   29 00000018 2A00            CMP              R2, 0
+   30 0000001A D000            BEQ              STOP
+   31 0000001C         
+   32 0000001C E7F7            B                LOOP
+   33 0000001E         
+   34 0000001E E7FE    STOP    B                STOP
+   35 00000020                 END
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\lab02_
+01.d -o.\lab02_01.o -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Kei
+l\ARM\Inc\ST\STM32F10x --list=.\lab02_01.lst Lab02_01.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Chuoi 00000008
+
+Symbol: Chuoi
+   Definitions
+      At line 6 in file Lab02_01.s
+   Uses
+      At line 20 in file Lab02_01.s
+Comment: Chuoi used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file Lab02_01.s
+   Uses
+      None
+Comment: RESET unused
+SoLuongPhanTu 0000001C
+
+Symbol: SoLuongPhanTu
+   Definitions
+      At line 7 in file Lab02_01.s
+   Uses
+      At line 21 in file Lab02_01.s
+Comment: SoLuongPhanTu used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+LOOP 0000000E
+
+Symbol: LOOP
+   Definitions
+      At line 24 in file Lab02_01.s
+   Uses
+      At line 32 in file Lab02_01.s
+Comment: LOOP used once
+MAIN 00000000
+
+Symbol: MAIN
+   Definitions
+      At line 16 in file Lab02_01.s
+   Uses
+      At line 4 in file Lab02_01.s
+Comment: MAIN used once
+MAINSOURCE 00000000
+
+Symbol: MAINSOURCE
+   Definitions
+      At line 9 in file Lab02_01.s
+   Uses
+      None
+Comment: MAINSOURCE unused
+STOP 0000001E
+
+Symbol: STOP
+   Definitions
+      At line 34 in file Lab02_01.s
+   Uses
+      At line 30 in file Lab02_01.s
+      At line 34 in file Lab02_01.s
+
+4 symbols
+339 symbols in table
