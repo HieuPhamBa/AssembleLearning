@@ -1,1 +1,0 @@
-.\tongsonguyento.o: TongSoNguyenTo.s

@@ -1,0 +1,13 @@
+	AREA	RESET, DATA, READONLY
+		DCD 0x20001000
+		DCD Batdau
+		
+GiaiThua DCD 1
+N	DCD	5		
+		
+	AREA	DoanCode, CODE, READONLY
+		ENTRY		
+Batdau
+	MOV	R1, R2
+	
+	END
