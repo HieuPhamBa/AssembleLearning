@@ -28,10 +28,10 @@
 
 ;VALIDATE
 	;CMP R0, #0
-	;BEQ STOP
+	;BEL STOP
 	
 	;CMP R1, #0
-	;BEQ STOP
+	;BEL STOP
 	
 ;UCLN
 	;CMP R0, R1
