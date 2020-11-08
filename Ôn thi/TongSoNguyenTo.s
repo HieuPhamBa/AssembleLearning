@@ -53,7 +53,7 @@
 ;; R7 la phan tu luu 1 -> R3, 1
 ;KIEMTRASONGUYENTO PROC
 	;CMP R3, #0       ; Neu R3 = 0 (0 khong la so nguyen to)
-	;BEQ KHONGLASONT  
+	;BEL KHONGLASONT  
 	
 	;CMP R3, #2 		 ; Neu R3 <=2 (1, 2 la so nguyen to)
 	;BLT LASONT
