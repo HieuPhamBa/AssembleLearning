@@ -22,6 +22,13 @@
 ;MAIN 
 	;LDR R0, Num1 ; gan phan tu number 1, R0 = 18
 	;LDR R1, Num2 ; gan phan tu number 2, R1 = 16
+
+;VALIDATE
+	;CMP R0, #0
+	;BEL STOP
+	
+	;CMP R1, #0
+	;BEL STOP
 	
 ;LOOP
 	;CMP R0, R1
