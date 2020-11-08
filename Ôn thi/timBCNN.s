@@ -1,38 +1,55 @@
- 	AREA RESET, DATA, READONLY
-		DCD 0X20001000
-		DCD Reset_Handler
-A EQU 12
-B EQU 8
-	
-	AREA MYCODE, CODE, READONLY
+;; Tinh BCLN
+;; Giai thuat eculid
+;; while(a != b)
+;;{
+;;	if (a > b)
+;;		a = a - b
+;;	else if (a < b)
+;;		b = b - a
+;;}
+;;BCLN = a*b/ UCNN
+;;Ket qua luu thanh R2
 
-Reset_Handler
- 	LDR R1, =A
-	LDR R2, =B
-	MOV R3, #0 ; bien temp
+	;AREA RESET, DATA, READONLY
+		;DCD 0x20000000
+		;DCD MAIN
+		
+;Num1 DCD 18
+;Num2 DCD 1
 	
-TimUCLN 	
-	B	phanDu
-tiep	
-	MOV R3, R1   ; gan temp = phan du
-	MOV R1, R2
-	MOV R2, R3
-	CMP R2, #0
-	BNE TimUCLN	; NEU KHONG BANG THI QUAY VE TINH UCLN
-	B TinhBCNN
+	;AREA MAINSOURCE, CODE, READONLY
+		;ENTRY
 	
-phanDu
-	SUB R1, R2
-	CMP R1, R2
-	BHS phanDu
-	B	tiep
+;; ket qua luu o R0	
+;MAIN 
+	;LDR R0, Num1 ; gan phan tu number 1, R0 = 18
+	;LDR R1, Num2 ; gan phan tu number 2, R1 = 16
+	;MUL R2, R1, R0 ; R2 = R1 * R0
 
-TinhBCNN
-	LDR R4, =A   ; lay lai gia tri bien A, NEU K LAY LAI THI SE BI XUNG DOT
-	LDR R5, =B	; lay lai gia tri bien B
-	MUL R6, R4, R5	; R6 = R4 x R5
-	SDIV R7, R6, R1	; R7 = R6/R1
+;VALIDATE
+	;CMP R0, #0
+	;BEL STOP
 	
-STOP	
-	B	STOP
-	END
+	;CMP R1, #0
+	;BEL STOP
+	
+;UCLN
+	;CMP R0, R1
+	;BEQ BCNN
+	;BGT NEXT1
+	;BLT NEXT2
+
+;NEXT1
+	;SUB R0, R1 ; R0 = R0 - R1
+	;B UCLN
+	
+;NEXT2 
+	;SUB R1, R0 ; R1 = R1 - R0
+	;B UCLN
+
+;BCNN
+	;SDIV R2, R1
+
+;STOP B STOP
+
+	;END
