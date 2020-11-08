@@ -1,32 +1,49 @@
-	 AREA RESET, DATA, READONLY
-	 DCD 0x20001000
-	 DCD Reset_Handler
+;; Tinh BCLN
+;; Giai thuat eculid
+;; while(a != b)
+;;{
+;;	if (a > b)
+;;		a = a - b
+;;	else if (a < b)
+;;		b = b - a
+;;}
 
-A EQU 15
-B EQU 10
-
-	AREA MYCODE, CODE, READONLY
-
-Reset_Handler
-	LDR R1, =A; TRO DEN A
-	LDR R2, =B; TRO DEN B
-	MOV R3, #0; bien temp 
-
-TimUCLN 	
-	B	phanDu
-tiep	
-	MOV R3, R1   ; gan temp = phan du
-	MOV R1, R2
-	MOV R2, R3
-	CMP R2, #0
-	BNE TimUCLN	
-	B STOP
+	;AREA RESET, DATA, READONLY
+		;DCD 0x20000000
+		;DCD MAIN
+		
+;Num1 DCD 18
+;Num2 DCD 16
 	
-phanDu
-	SUB R1, R2
-	CMP R1, R2
-	BHS phanDu
-	B	tiep
-STOP
-	B STOP
-	END
+	;AREA MAINSOURCE, CODE, READONLY
+		;ENTRY
+	
+;; ket qua luu o R0	
+;MAIN 
+	;LDR R0, Num1 ; gan phan tu number 1, R0 = 18
+	;LDR R1, Num2 ; gan phan tu number 2, R1 = 16
+
+;VALIDATE
+	;CMP R0, #0
+	;BEL STOP
+	
+	;CMP R1, #0
+	;BEL STOP
+	
+;LOOP
+	;CMP R0, R1
+	;BEQ STOP
+	;BGT NEXT1
+	;BLT NEXT2
+
+;NEXT1
+	;SUB R0, R1 ; R0 = R0 - R1
+	;B LOOP
+	
+;NEXT2 
+	;SUB R1, R0 ; R1 = R1 - R0
+	;B LOOP
+
+;STOP B STOP
+
+	;END
